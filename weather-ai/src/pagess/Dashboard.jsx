@@ -1,3 +1,4 @@
+import { getBackground } from "../utils/getBackground";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const data = [
@@ -10,14 +11,17 @@ const data = [
 ];
 
 export default function Dashboard() {
+  const weather = "Stormy with partly cloudy"; // later from API
+  const bg = getBackground(weather);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-6">
+    <div className={`min-h-screen bg-gradient-to-br ${bg} flex items-center justify-center p-6`}>
       <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 max-w-4xl w-full">
         {/* City + Temp */}
         <div className="text-center">
           <h1 className="text-4xl font-bold text-cyan-400">Brooklyn, NY</h1>
           <p className="text-6xl font-extrabold mt-2">18°C</p>
-          <p className="text-lg text-gray-300">Stormy with partly cloudy</p>
+          <p className="text-lg text-gray-300">{weather}</p>
           <p className="text-gray-400">High: 29°C | Low: 12°C</p>
         </div>
 
@@ -33,8 +37,8 @@ export default function Dashboard() {
           <h2 className="text-xl font-bold text-gray-200 mb-4">Weekly Forecast</h2>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={data}>
-              <XAxis dataKey="day" stroke="#888" />
-              <YAxis stroke="#888" />
+              <XAxis dataKey="day" stroke="#aaa" />
+              <YAxis stroke="#aaa" />
               <Tooltip />
               <Line type="monotone" dataKey="temp" stroke="#4ade80" strokeWidth={3} dot={{ r: 6 }} />
             </LineChart>
