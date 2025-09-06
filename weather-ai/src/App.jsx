@@ -1,4 +1,4 @@
-import Dashboard from './components/Dashboard';
+import Dashboard from './pagess/Dashboard';
 
 function App() {
   return (
