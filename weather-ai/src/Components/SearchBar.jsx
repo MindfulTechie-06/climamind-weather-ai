@@ -1,14 +1,13 @@
+// src/Components/SearchBar.jsx
 export default function SearchBar() {
   return (
-    <div className="flex justify-center">
+    <div className="relative">
       <input
         type="text"
-        placeholder="Enter city..."
-        className="px-4 py-2 rounded-l-lg border border-gray-600 bg-gray-800 text-white focus:outline-none"
+        placeholder="Search Location..."
+        className="px-4 py-2 rounded-lg border-none bg-black/20 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-cyan-500"
       />
-      <button className="px-4 py-2 bg-blue-600 rounded-r-lg text-white">
-        Search
-      </button>
+      {/* Search icon could be added here */}
     </div>
   );
 }

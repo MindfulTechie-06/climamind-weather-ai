@@ -1,49 +1,70 @@
-import { getBackground } from "../utils/getBackground";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-
-const data = [
-  { day: "Sun", temp: 28 },
-  { day: "Mon", temp: 26 },
-  { day: "Tue", temp: 27 },
-  { day: "Wed", temp: 23 },
-  { day: "Thu", temp: 30 },
-  { day: "Fri", temp: 25 },
-];
+// src/pagess/Dashboard.jsx
+import ForecastChart from '../Components/ForecastChart';
+import RecentSearchCard from '../Components/RecentSearchCard';
+import SearchBar from '../Components/SearchBar';
+import Sidebar from '../Components/Sidebar';
 
 export default function Dashboard() {
   const weather = "Stormy with partly cloudy"; // later from API
-  const bg = getBackground(weather);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${bg} flex items-center justify-center p-6`}>
-      <div className="bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl p-8 max-w-4xl w-full">
-        {/* City + Temp */}
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-cyan-400">Brooklyn, NY</h1>
-          <p className="text-6xl font-extrabold mt-2">18°C</p>
-          <p className="text-lg text-gray-300">{weather}</p>
-          <p className="text-gray-400">High: 29°C | Low: 12°C</p>
+    <div className="min-h-screen p-4 lg:p-6 text-white">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 h-full">
+        
+        {/* --- LEFT SIDEBAR --- */}
+        <div className="lg:col-span-1 h-full">
+          <Sidebar />
         </div>
 
-        {/* AI Weather Advice */}
-        <div className="mt-6 bg-red-500/20 border border-red-400 rounded-xl p-4 text-center">
-          <p className="text-red-400 font-semibold">
-            ⚠️ Dangerous conditions detected. Please carry an umbrella and avoid outdoor travel after 6 PM.
-          </p>
-        </div>
+        {/* --- MAIN CONTENT --- */}
+        <main className="lg:col-span-3 flex flex-col gap-6">
+          
+          {/* Header */}
+          <header className="flex justify-between items-center">
+            <div>
+              <p className="font-semibold text-white/80">Brooklyn, New York, USA</p>
+              <p className="text-sm text-white/50">Friday, January 4</p>
+            </div>
+            <div className="flex items-center gap-4">
+              <SearchBar />
+              <button className="bg-cyan-500 hover:bg-cyan-600 px-4 py-2 rounded-lg font-semibold">
+                Download App
+              </button>
+            </div>
+          </header>
 
-        {/* Weekly Forecast */}
-        <div className="mt-8">
-          <h2 className="text-xl font-bold text-gray-200 mb-4">Weekly Forecast</h2>
-          <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={data}>
-              <XAxis dataKey="day" stroke="#aaa" />
-              <YAxis stroke="#aaa" />
-              <Tooltip />
-              <Line type="monotone" dataKey="temp" stroke="#4ade80" strokeWidth={3} dot={{ r: 6 }} />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
+          {/* Main Weather Info */}
+          <section className="flex flex-col lg:flex-row justify-between items-start gap-6">
+            <div className="flex items-start">
+              <p className="text-8xl font-bold">18°</p>
+              <div className="mt-2 ml-4">
+                <p className="font-semibold">H 29°</p>
+                <p className="text-white/70">L 12°</p>
+              </div>
+            </div>
+            <p className="text-4xl text-white/80 max-w-xs text-left lg:text-right">
+              {weather}
+            </p>
+          </section>
+
+          {/* Recently Searched */}
+          <section>
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-xl font-semibold">Recently Searched</h2>
+              <a href="#" className="text-cyan-400 text-sm">See All &gt;</a>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <RecentSearchCard location="Liverpool, UK" temp="16" condition="Partly Cloudy" />
+              <RecentSearchCard location="Palermo, Italy" temp="-2" condition="Rain Thunder" />
+            </div>
+          </section>
+          
+          {/* Weekly Forecast */}
+          <section className="bg-black/20 backdrop-blur-lg rounded-2xl p-6">
+            <ForecastChart />
+          </section>
+
+        </main>
       </div>
     </div>
   );
